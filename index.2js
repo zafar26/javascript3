@@ -1,0 +1,30 @@
+const fetch = require("node-fetch");
+
+
+// Include prompt module.
+var prompt = require('prompt');
+
+// This json object is used to configure what data will be retrieved from command line.
+var prompt_attributes = [
+    {
+        // The fist input city is assigned to name variable.
+        name: 'city',
+    }   
+];
+
+// Start the prompt to read user input.
+prompt.start();
+
+// Prompt and get user input then display those data in console.
+prompt.get(prompt_attributes, function (err, result) {
+    
+
+// information to reach API
+const city = result.city;
+const apiKey = '156f8fdf5f153d5b57ce9aa7e8b0dca3';
+const weatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+
+fetch(weatherUrl)
+    .then(res => res.json())
+    .then(json => console.log(json));
+})
